@@ -1,5 +1,5 @@
 const express = require("express");
-const { ServerConfig, addUser, findUser } = require("./config");
+const { ServerConfig, addUser, findUser, removeUser } = require("./config");
 
 const app = express();
 
@@ -11,12 +11,12 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/add", (req, res) => {
+app.post("/add", async (req, res) => {
   const { email, name, age, favFood } = req.body;
   const user = { email, name, age, favFood };
 
   try {
-    addUser(user);
+    await addUser(user);
     console.log("User added successfully");
     return res.send({
       message: "New user added successfully",
@@ -30,10 +30,10 @@ app.post("/add", (req, res) => {
   }
 });
 
-app.get("/find", (req, res) => {
+app.get("/find", async (req, res) => {
   const { email } = req.body;
   try {
-    const user = findUser(email);
+    const user = await findUser(email);
     if (user) {
       console.log("User found.", user);
       return res.send({
@@ -50,6 +50,22 @@ app.get("/find", (req, res) => {
     console.log("Can't  add new user. Something went wrong!!!");
     return res.send({
       message: "Something went wrong.",
+    });
+  }
+});
+
+app.delete("/delete", async (req, res) => {
+  try {
+    const { email } = req.body;
+    await removeUser(email);
+    console.log("User deleted successfully.");
+    return res.send({
+      message: "User removed successfully",
+    });
+  } catch (error) {
+    console.log("Can't  delete new user. Something went wrong!!!");
+    return res.send({
+      message: "Can't delete. Something went wrong",
     });
   }
 });

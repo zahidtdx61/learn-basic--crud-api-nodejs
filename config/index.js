@@ -1,7 +1,7 @@
 const { User } = require("./mongooseConfig");
 
-const addUser = async ({ email, name, age, favFood }) => {
-  await User.create({
+const addUser = ({ email, name, age, favFood }) => {
+  return User.create({
     email,
     name,
     age,
@@ -9,13 +9,12 @@ const addUser = async ({ email, name, age, favFood }) => {
   });
 };
 
-const removeUser = async (email) => {
-  await User.deleteOne({ email });
+const removeUser = (email) => {
+  return User.deleteOne({ email });
 };
 
-const findUser = async (email) => {
-  const user = await User.findOne({ email });
-  return user;
+const findUser = (email) => {
+  return User.findOne({ email });
 };
 
 module.exports = {
