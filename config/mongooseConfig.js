@@ -16,6 +16,38 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("My_table", UserSchema);
 
+const addUser = ({ email, name, age, favFood }) => {
+  return User.create({
+    email,
+    name,
+    age,
+    favFood,
+  });
+};
+
+const removeUser = (email) => {
+  return User.deleteOne({ email });
+};
+
+const findUser = (email) => {
+  return User.findOne({ email });
+};
+
+const updateUser = ({ email, name, age, favFood }) => {
+  return User.updateOne(
+    { email },
+    {
+      email,
+      name,
+      age,
+      favFood,
+    }
+  );
+};
+
 module.exports = {
-  User,
+  addUser,
+  removeUser,
+  findUser,
+  updateUser,
 };

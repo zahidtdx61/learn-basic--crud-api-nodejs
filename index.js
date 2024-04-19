@@ -1,5 +1,11 @@
 const express = require("express");
-const { ServerConfig, addUser, findUser, removeUser } = require("./config");
+const {
+  ServerConfig,
+  addUser,
+  findUser,
+  removeUser,
+  updateUser,
+} = require("./config");
 
 const app = express();
 
@@ -12,10 +18,10 @@ app.get("/", (req, res) => {
 });
 
 app.post("/add", async (req, res) => {
-  const { email, name, age, favFood } = req.body;
-  const user = { email, name, age, favFood };
-
   try {
+    const { email, name, age, favFood } = req.body;
+    const user = { email, name, age, favFood };
+
     await addUser(user);
     console.log("User added successfully");
     return res.send({
@@ -31,8 +37,9 @@ app.post("/add", async (req, res) => {
 });
 
 app.get("/find", async (req, res) => {
-  const { email } = req.body;
   try {
+    const { email } = req.body;
+
     const user = await findUser(email);
     if (user) {
       console.log("User found.", user);
@@ -47,7 +54,32 @@ app.get("/find", async (req, res) => {
       });
     }
   } catch (error) {
-    console.log("Can't  add new user. Something went wrong!!!");
+    console.log("Can't find user. Something went wrong!!!");
+    return res.send({
+      message: "Something went wrong.",
+    });
+  }
+});
+
+app.put("/update", async (req, res) => {
+  try {
+    const { email, name, age, favFood } = req.body;
+    const user = {
+      email,
+      name,
+      age,
+      favFood,
+    };
+
+    const updatedUser = await updateUser(user);
+    console.log("User updated successfully", updatedUser);
+
+    return res.send({
+      message: "User updated successfully",
+      updatedUser,
+    });
+  } catch (error) {
+    console.log("Can't  update user. Something went wrong!!!");
     return res.send({
       message: "Something went wrong.",
     });
@@ -57,8 +89,10 @@ app.get("/find", async (req, res) => {
 app.delete("/delete", async (req, res) => {
   try {
     const { email } = req.body;
+
     await removeUser(email);
     console.log("User deleted successfully.");
+
     return res.send({
       message: "User removed successfully",
     });
@@ -68,6 +102,12 @@ app.delete("/delete", async (req, res) => {
       message: "Can't delete. Something went wrong",
     });
   }
+});
+
+app.use((req, res) => {
+  return res.send({
+    message: "From global something went wrong!!!",
+  });
 });
 
 app.listen(ServerConfig.PORT, () => {
