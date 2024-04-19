@@ -45,9 +45,15 @@ const updateUser = ({ email, name, age, favFood }) => {
   );
 };
 
-module.exports = {
+const findAllUser = () => {
+  return User.find({});
+};
+
+const database = {
   addUser,
   removeUser,
   findUser,
   updateUser,
 };
+
+module.exports = database;
