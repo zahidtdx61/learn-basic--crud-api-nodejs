@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema({
   favFood: String,
 });
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model("My_table", UserSchema);
 
 module.exports = {
   User,

@@ -1,29 +1,26 @@
 const { User } = require("./mongooseConfig");
 
 const addUser = async ({ email, name, age, favFood }) => {
-  try {
-    await User.create({
-      email,
-      name,
-      age,
-      favFood,
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  await User.create({
+    email,
+    name,
+    age,
+    favFood,
+  });
 };
 
 const removeUser = async (email) => {
-  try {
-    await User.deleteOne({ email });
-    console.log("User deleted successfully");
-  } catch (error) {
-    console.log(error);
-  }
+  await User.deleteOne({ email });
+};
+
+const findUser = async (email) => {
+  const user = await User.findOne({ email });
+  return user;
 };
 
 module.exports = {
   addUser,
+  findUser,
   removeUser,
   ServerConfig: require("./serverConfig"),
 };
