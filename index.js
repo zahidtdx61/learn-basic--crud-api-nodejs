@@ -64,7 +64,7 @@ app.get("/find", async (req, res) => {
 
 app.get("/find-all", async (req, res) => {
   try {
-    const users = await findAllUser(email);
+    const users = await findAllUser();
     if (users) {
       console.log("All users not found");
       return res.send({

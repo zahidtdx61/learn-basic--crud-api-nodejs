@@ -54,6 +54,7 @@ const database = {
   removeUser,
   findUser,
   updateUser,
+  findAllUser,
 };
 
 module.exports = database;
