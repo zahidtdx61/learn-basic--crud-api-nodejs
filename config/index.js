@@ -25,4 +25,5 @@ const removeUser = async (email) => {
 module.exports = {
   addUser,
   removeUser,
+  ServerConfig: require("./serverConfig"),
 };
