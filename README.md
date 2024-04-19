@@ -25,7 +25,7 @@ This project provides the following routes for performing CRUD operations:
       {
         "email": "user_email",
         "name": "user_name",
-        "age": user_age,
+        "age": "user_age",
         "favFood": "favourite food"
       }
     ```
@@ -49,14 +49,10 @@ This project provides the following routes for performing CRUD operations:
       {
         "email": "previous_email",
         "name": "user_name",
-        "age": user_age,
+        "age": "user_age",
         "favFood": "favourite food"
       }
     ```
-
-  ```
-
-  ```
 
 - `DELETE /delete`: Deletes a specific user data by `email`.
 
@@ -86,7 +82,7 @@ MONGO_URL=<url of your MongoDB database>
 
 4. Start the server: `npm run dev`
 
-5. Open your browser and navigate to `http://localhost:3000`
+5. Open your browser and navigate to `http://localhost:<PORT>`
 6. Use the provided routes to perform CRUD operations.
 
 ## Contributing
